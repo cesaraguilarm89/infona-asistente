@@ -6,7 +6,7 @@ import datetime
 st.set_page_config(page_title="INFONA", layout="centered")
 st.image("logo_infona_redes.png", width=120)
 st.title("INFONA - Asistente Inteligente de Vivienda")
-st.caption("Soluciones accesibles, información clara.")
+st.caption("Consulta, simula y agenda de forma sencilla.")
 
 menu = st.sidebar.radio("Menú de navegación", [
     "Inicio",
@@ -25,20 +25,25 @@ def guardar_cita(nombre, curp, fecha, sede):
     conn.commit()
     conn.close()
 
+def responder_chat(texto):
+    texto = texto.lower()
+    for clave in ['que es infona', 'cuanto credito tengo', 'agendar cita', 'infona es parte de infonavit', 'tramites oficiales', 'requisitos para obtener credito', 'hacer pagos', 'datos seguros', 'infona cobra', 'dudas adicionales']:
+        if clave in texto:
+            return {'que es infona': 'INFONA es un asistente inteligente diseñado para orientarte sobre temas relacionados con tu crédito de vivienda.', 'cuanto credito tengo': 'Puedes usar nuestro simulador de crédito ingresando tu salario mensual y años de cotización.', 'agendar cita': "Desde la pestaña 'Agendar cita' puedes registrar una fecha y lugar para tu atención presencial.", 'infona es parte de infonavit': 'INFONA es una herramienta complementaria que orienta sobre temas de vivienda, basada en información pública.', 'tramites oficiales': 'No. INFONA es solo una guía. Los trámites oficiales se realizan directamente en Infonavit.', 'requisitos para obtener credito': 'Necesitas tener relación laboral activa, al menos 116 puntos y una precalificación positiva.', 'hacer pagos': 'No. Esta plataforma es solo informativa. Para pagos, consulta directamente tu portal Infonavit.', 'datos seguros': 'Sí. No almacenamos ni compartimos información sin consentimiento.', 'infona cobra': 'No. Es una herramienta gratuita de consulta y orientación.', 'dudas adicionales': 'Puedes contactarnos por los canales oficiales de atención o visitar un CESI.'}[clave]
+    return "Gracias por tu consulta. Actualmente INFONA responde preguntas relacionadas con tu crédito de vivienda, citas y requisitos. Estamos mejorando cada día para ayudarte mejor."
+
 if menu == "Inicio":
     st.subheader("Bienvenido a INFONA")
-    st.markdown(
-        "Te damos la bienvenida a INFONA, el asistente virtual inteligente que te ayuda a conocer tu crédito de vivienda, "
-        "agendar citas y resolver tus dudas de forma clara y profesional."
-    )
+    st.markdown("Te damos la bienvenida a INFONA, tu asistente para conocer tu crédito de vivienda, agendar citas y resolver dudas de forma confiable.")
 
 elif menu == "Chatea con INFONA":
-    st.subheader("Consulta con INFONA")
-    st.markdown("Selecciona una pregunta frecuente para obtener una respuesta inmediata.")
-    pregunta = st.selectbox("Selecciona una pregunta:", ['¿Qué es INFONA?', '¿Cómo saber cuánto crédito tengo disponible?', '¿Dónde puedo agendar una cita?', '¿INFONA es parte de Infonavit?', '¿Puedo hacer trámites oficiales desde aquí?', '¿Cuáles son los requisitos para obtener un crédito?', '¿Se pueden hacer pagos desde esta app?', '¿Mis datos están seguros en INFONA?', '¿INFONA cobra algún servicio?', '¿Qué pasa si tengo dudas adicionales?'])
+    st.subheader("Chatea con INFONA")
+    st.markdown("Escribe tu pregunta sobre créditos, citas o requisitos:")
+    pregunta = st.text_input("Tu mensaje:")
     if pregunta:
-        st.markdown("**Respuesta:**")
-        st.info({'¿Qué es INFONA?': 'INFONA es un asistente inteligente diseñado para orientarte sobre temas relacionados con tu crédito de vivienda.', '¿Cómo saber cuánto crédito tengo disponible?': 'Puedes usar nuestro simulador de crédito ingresando tu salario mensual y años de cotización.', '¿Dónde puedo agendar una cita?': "Desde la pestaña 'Agendar cita' puedes registrar una fecha y lugar para tu atención presencial.", '¿INFONA es parte de Infonavit?': 'INFONA es una herramienta complementaria que orienta sobre temas de vivienda, basada en información pública.', '¿Puedo hacer trámites oficiales desde aquí?': 'No. INFONA es solo una guía. Los trámites oficiales se realizan directamente en Infonavit.', '¿Cuáles son los requisitos para obtener un crédito?': 'Necesitas tener relación laboral activa, al menos 116 puntos y una precalificación positiva.', '¿Se pueden hacer pagos desde esta app?': 'No. Esta plataforma es solo informativa. Para pagos, consulta directamente tu portal Infonavit.', '¿Mis datos están seguros en INFONA?': 'Sí. No almacenamos ni compartimos información sin consentimiento.', '¿INFONA cobra algún servicio?': 'No. Es una herramienta gratuita de consulta y orientación.', '¿Qué pasa si tengo dudas adicionales?': 'Puedes contactarnos por los canales oficiales de atención o visitar un CESI.'}[pregunta])
+        respuesta = responder_chat(pregunta)
+        st.markdown("**INFONA responde:**")
+        st.success(respuesta)
 
 elif menu == "Simulador de Crédito":
     st.subheader("Simulador de Crédito INFONA")
