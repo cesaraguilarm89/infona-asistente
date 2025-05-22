@@ -1,17 +1,13 @@
 
 import streamlit as st
-import openai
 import sqlite3
 import datetime
 
-# Seguridad: API Key tomada desde secrets
-openai.api_key = st.secrets["OPENAI_API_KEY"]
-
 st.set_page_config(page_title="INFONA", layout="centered")
 st.title("INFONA - Asistente Inteligente del Infonavit")
-st.subheader("Consulta tu crédito, agenda una cita y chatea con IA.")
+st.subheader("Consulta tu crédito, agenda una cita y revisa tus opciones.")
 
-menu = st.sidebar.selectbox("Menú", ["Inicio", "Simulador de Crédito", "Agendar Cita", "Chat con INFONA"])
+menu = st.sidebar.selectbox("Menú", ["Inicio", "Simulador de Crédito", "Agendar Cita"])
 
 def guardar_cita(nombre, curp, fecha, sede):
     conn = sqlite3.connect("citas.db")
@@ -22,20 +18,9 @@ def guardar_cita(nombre, curp, fecha, sede):
     conn.commit()
     conn.close()
 
-def responder_con_gpt(pregunta):
-    try:
-        respuesta = openai.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": pregunta}],
-            temperature=0.7
-        )
-        return respuesta.choices[0].message.content
-    except Exception as e:
-        return f"Ocurrió un error al consultar la IA: {e}"
-
 if menu == "Inicio":
-    st.image("infonavit_logo.svg", width=120)
-    st.markdown("**Bienvenido a INFONA.** Tu asistente para trámites con Infonavit.")
+    st.image("infonavit_logo.png", width=150)
+    st.markdown("**Bienvenido a INFONA.** Este asistente te ayuda a simular tu crédito y agendar citas con Infonavit.")
 
 elif menu == "Simulador de Crédito":
     st.header("Simulador de Crédito")
@@ -49,16 +34,8 @@ elif menu == "Agendar Cita":
     st.header("Agenda una Cita")
     nombre = st.text_input("Nombre completo")
     curp = st.text_input("CURP")
-    fecha = st.date_input("Fecha", min_value=datetime.date.today())
+    fecha = st.date_input("Fecha deseada", min_value=datetime.date.today())
     sede = st.selectbox("Sede", ["Oaxaca", "CDMX", "Guadalajara", "Monterrey"])
     if st.button("Agendar"):
         guardar_cita(nombre, curp, fecha, sede)
-        st.success("¡Tu cita ha sido agendada!")
-
-elif menu == "Chat con INFONA":
-    st.header("Asistente Virtual con IA")
-    pregunta = st.text_input("Escribe tu duda:")
-    if pregunta:
-        respuesta = responder_con_gpt(pregunta)
-        st.write("INFONA responde:")
-        st.write(respuesta)
+        st.success("Tu cita fue registrada con éxito.")
