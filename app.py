@@ -36,7 +36,7 @@ opcion = st.sidebar.radio("", ["🏠 Inicio", "💬 Chatea con INFONA", "🧮 Si
 if opcion == "🏠 Inicio":
     st.title("INFONA - Asistente Inteligente de Vivienda")
     st.markdown("Consulta, simula y agenda de forma sencilla.")
-    st.image("infona_avatar.jpg", width=200)
+    st.image("infonavit_logo.PNG", width=200)
     st.markdown("**¡Hola! Soy INFONA, tu asistente inteligente de vivienda.** Estoy aquí para ayudarte a consultar tu crédito, simular montos, agendar citas o resolver cualquier duda que tengas sobre trámites de vivienda. Selecciona una opción en el menú para comenzar.")
 
 elif opcion == "💬 Chatea con INFONA":
