@@ -2,14 +2,18 @@
 import streamlit as st
 import sqlite3
 import datetime
+import openai
+
+# Configura tu clave de OpenAI
+openai.api_key = "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"
 
 st.set_page_config(page_title="INFONA", layout="centered")
 st.title("INFONA - Asistente Inteligente del Infonavit")
-st.subheader("Tu asistente para consultar crédito, agendar citas y resolver dudas.")
+st.subheader("Consulta tu crédito, agenda citas y chatea con IA.")
 
 menu = st.sidebar.selectbox("Menú", ["Inicio", "Simulador de Crédito", "Agendar Cita", "Chat con INFONA"])
 
-# Función para guardar citas en SQLite
+# Base de datos local para guardar citas
 def guardar_cita(nombre, curp, fecha, sede):
     conn = sqlite3.connect("citas.db")
     c = conn.cursor()
@@ -19,9 +23,21 @@ def guardar_cita(nombre, curp, fecha, sede):
     conn.commit()
     conn.close()
 
+# Chatbot con GPT
+def responder_con_gpt(pregunta):
+    try:
+        respuesta = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": pregunta}],
+            temperature=0.6
+        )
+        return respuesta.choices[0].message["content"]
+    except Exception as e:
+        return f"Ocurrió un error al consultar la IA: {e}"
+
 if menu == "Inicio":
-    st.image("https://upload.wikimedia.org/wikipedia/commons/4/4b/Infonavit_logo.svg", width=120)
-    st.markdown("**Bienvenido a INFONA.** Este asistente te ayudará a realizar consultas y trámites con Infonavit.")
+    st.image("infonavit_logo.svg", width=120)
+    st.markdown("**Bienvenido a INFONA**: tu asistente confiable para trámites con Infonavit.")
 
 elif menu == "Simulador de Crédito":
     st.header("Simulador de Crédito")
@@ -42,8 +58,9 @@ elif menu == "Agendar Cita":
         st.success(f"Cita registrada para {nombre} el {fecha} en {sede}.")
 
 elif menu == "Chat con INFONA":
-    st.header("Asistente Virtual")
+    st.header("Asistente Virtual con IA")
     user_input = st.text_input("Escribe tu duda:")
     if user_input:
-        st.info("Respuesta simulada:")
-        st.write("Gracias por tu pregunta. Pronto un asesor se pondrá en contacto contigo o visita nuestro portal oficial.")
+        st.info("INFONA responde:")
+        respuesta = responder_con_gpt(user_input)
+        st.write(respuesta)
