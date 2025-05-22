@@ -96,21 +96,4 @@ menu_opciones = {
     "Simulador": "📊 Simulador de Crédito",
     "Cita": "📅 Agendar Cita",
     "FAQ": "❓ Preguntas Frecuentes"
-}
 
-seleccion = st.sidebar.radio(
-    "Menú de navegación",
-    list(menu_opciones.values()),
-    key="menu_navegacion"
-)
-
-if seleccion == menu_opciones["Inicio"]:
-    mostrar_inicio()
-elif seleccion == menu_opciones["Chat"]:
-    mostrar_chat()
-elif seleccion == menu_opciones["Simulador"]:
-    mostrar_simulador()
-elif seleccion == menu_opciones["Cita"]:
-    mostrar_agendar()
-elif seleccion == menu_opciones["FAQ"]:
-    mostrar_preguntas()
