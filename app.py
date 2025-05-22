@@ -2,42 +2,60 @@
 import streamlit as st
 from datetime import datetime
 
-# Diseño general
 st.set_page_config(page_title="INFONA - Asistente Inteligente de Vivienda", page_icon="🏠", layout="wide")
 
-# --- Diccionario de respuestas ---
-respuestas = {
-    "hola": "¡Hola! ¿En qué puedo ayudarte hoy?",
-    "adiós": "Gracias por consultar a INFONA. ¿Quieres que los pendientes te los mande a tu correo o tu WhatsApp registrado?",
-    "infona": "INFONA es tu asistente virtual para orientación sobre créditos, pagos, citas y trámites relacionados con vivienda.",
-    "cuánto debo pagar": "Por favor indícame si deseas calcularlo con base en tu crédito actual o estado de cuenta.",
-    "estado de cuenta": "Puedes consultar tu estado de cuenta ingresando a tu perfil Infonavit o solicitarlo aquí. ¿Deseas que lo solicitemos por ti?",
-    "nss": "Tu Número de Seguridad Social (NSS) es importante para el trámite. ¿Deseas saber cómo obtenerlo?",
-    "ayuda": "Claro, puedo ayudarte con créditos, simulaciones, pagos, citas y más. ¿Qué necesitas saber?",
-    "requisitos crédito": "Para obtener un crédito necesitas estar dado de alta en el IMSS, tener relación laboral vigente y puntos suficientes.",
-    "simulador": "Ve al apartado 'Simulador de Crédito' para estimar tu monto disponible.",
-    "agendar cita": "Puedes agendar una cita en el apartado correspondiente. ¿Te ayudo a llenarlo?"
+# Diccionario integrado
+respuestas_extensas = {
+    # Saludos
+    "hola": "¡Hola! Soy INFONA, tu asistente virtual. ¿En qué puedo ayudarte hoy?",
+    "buenos días": "¡Buenos días! Estoy lista para ayudarte con cualquier trámite o consulta de vivienda.",
+    "buenas tardes": "¡Buenas tardes! ¿Te ayudo con tu crédito o alguna cita?",
+    "buenas noches": "¡Buenas noches! ¿Necesitas orientación sobre tu crédito de vivienda?",
+
+    # Despedidas con llamado a la acción
+    "adiós": "Aún tenemos pendientes. ¿Quieres que te los mande a tu correo o WhatsApp registrado?",
+    "nos vemos": "Nos vemos. ¿Te gustaría que guarde esta conversación o la envíe a tu contacto?",
+    "gracias": "¡Con gusto! ¿Deseas que esta información se te envíe por correo o WhatsApp?",
+
+    # Identidad
+    "¿qué es infona?": "INFONA es un asistente virtual que te apoya con trámites, simulaciones y dudas sobre tu crédito de vivienda.",
+    "¿quién eres?": "Soy INFONA, un asistente inteligente de vivienda listo para ayudarte.",
+    "¿para qué sirves?": "Te ayudo a conocer tu crédito, pagos, puntos, requisitos y a agendar tus citas.",
+
+    # Consultas comunes
+    "¿cuánto debo?": "**Tu saldo estimado es de:** $48,230 MXN. ¿Quieres un desglose completo por bimestre?",
+    "¿cuándo debo pagar?": "**Tu próximo pago vence el:** 17 de junio de 2025. ¿Te gustaría recibir un recordatorio?",
+    "¿cuánto me toca pagar este bimestre?": "**Pago bimestral estimado:** $2,407. ¿Deseas realizar este cálculo con tus datos reales?",
+    "¿tengo deudas?": "**Detectamos 2 bimestres pendientes.** ¿Deseas recibir un resumen detallado?",
+    "estado de cuenta": "Tu último estado de cuenta indica saldo a favor por $1,250. ¿Te gustaría enviarlo por correo?",
+    "mi nss": "Tu NSS es un dato esencial para consultas. ¿Quieres que te muestre cómo recuperarlo?",
+
+    # Requisitos y procesos
+    "¿qué necesito para un crédito?": "Debes estar dado de alta en el IMSS, tener relación laboral activa y al menos 1080 puntos.",
+    "¿cómo obtengo un crédito?": "Puedes iniciar con una precalificación. ¿Te gustaría simularlo ahora?",
+    "puntos": "Tu puntaje actual estimado es de 985. ¿Quieres saber cuántos necesitas para alcanzar un crédito?",
+    "simulador": "Accede al simulador en el menú lateral. ¿Deseas ir ahora?",
+    "agendar cita": "Ve al apartado correspondiente y llena tus datos. ¿Quieres que te guíe paso a paso?"
 }
 
-# --- Función para encontrar respuesta ---
+# Función para obtener respuestas
 def obtener_respuesta(pregunta):
     pregunta = pregunta.lower()
-    for clave in respuestas:
+    for clave, respuesta in respuestas_extensas.items():
         if clave in pregunta:
-            return respuestas[clave]
-    return "Gracias por tu consulta. Actualmente INFONA responde preguntas relacionadas con tu crédito de vivienda, pagos, citas y requisitos. Estamos mejorando cada día para ayudarte mejor."
+            return respuesta
+    return "Gracias por tu consulta. ¿Te gustaría que te envíe la información a tu correo o WhatsApp?"
 
-# --- Menú lateral ---
-st.sidebar.image("infonavit_logo.PNG", width=150)
+# Sidebar
+st.sidebar.image("logo_infona_redes.png", width=150)
 st.sidebar.markdown("## Menú de navegación")
 opcion = st.sidebar.radio("", ["🏠 Inicio", "💬 Chatea con INFONA", "🧮 Simulador de Crédito", "🗓️ Agendar Cita", "❓ Preguntas Frecuentes"])
 
-# --- Contenido por sección ---
+# Contenido de la app
 if opcion == "🏠 Inicio":
     st.title("INFONA - Asistente Inteligente de Vivienda")
-    st.markdown("Consulta, simula y agenda de forma sencilla.")
-    st.image("infonavit_logo.PNG", width=200)
-    st.markdown("**¡Hola! Soy INFONA, tu asistente inteligente de vivienda.** Estoy aquí para ayudarte a consultar tu crédito, simular montos, agendar citas o resolver cualquier duda que tengas sobre trámites de vivienda. Selecciona una opción en el menú para comenzar.")
+    st.markdown("**¡Hola! Soy INFONA.** Tu asistente inteligente de vivienda. Te ayudo a consultar tu crédito, agendar citas o resolver cualquier duda.")
+    st.image("logo_infona_redes.png", width=200)
 
 elif opcion == "💬 Chatea con INFONA":
     st.header("Chatea con INFONA")
@@ -49,11 +67,11 @@ elif opcion == "💬 Chatea con INFONA":
 
 elif opcion == "🧮 Simulador de Crédito":
     st.header("Simulador de Crédito")
-    salario = st.number_input("Ingresa tu salario mensual:", min_value=0)
+    ingreso = st.number_input("Ingresa tu salario mensual:", min_value=0)
     puntos = st.slider("Selecciona tus puntos actuales Infonavit:", 0, 116, 90)
-    if salario > 0:
-        monto_credito = salario * (puntos / 116) * 20
-        st.write(f"Monto estimado de crédito: ${monto_credito:,.2f}")
+    if ingreso > 0:
+        monto_credito = ingreso * (puntos / 116) * 20
+        st.info(f"**Crédito estimado:** ${monto_credito:,.2f} MXN")
 
 elif opcion == "🗓️ Agendar Cita":
     st.header("Agenda una cita")
@@ -61,21 +79,21 @@ elif opcion == "🗓️ Agendar Cita":
     fecha = st.date_input("Selecciona la fecha:")
     hora = st.time_input("Selecciona la hora:")
     if nombre:
-        st.success(f"Cita agendada para {nombre} el {fecha} a las {hora}")
+        st.success(f"Cita agendada para **{nombre}** el **{fecha}** a las **{hora}**")
 
 elif opcion == "❓ Preguntas Frecuentes":
     st.header("Preguntas Frecuentes")
     st.markdown("""
 **¿Qué necesito para tramitar mi crédito?**  
-Necesitas estar dado de alta en el IMSS, contar con puntos suficientes y tener una relación laboral activa.
+Necesitas estar dado de alta en el IMSS, tener puntos suficientes y una relación laboral activa.
 
 **¿Puedo usar INFONA sin registrarme?**  
-Sí, INFONA está diseñado para darte asistencia básica sin necesidad de registro previo.
+Sí, puedes consultar y simular sin necesidad de registrarte.
 
 **¿Qué tipo de créditos existen?**  
-Crédito tradicional, Cofinavit, Unamos Créditos y Mejoravit, entre otros.
+Crédito tradicional, Cofinavit, Unamos Créditos y Mejoravit.
 """)
 
-# --- Pie de página ---
+# Pie de página
 st.markdown("<hr>", unsafe_allow_html=True)
 st.caption("INFONA es un asistente digital no oficial. Para atención personalizada, consulta el portal oficial de Infonavit.")
