@@ -5,7 +5,7 @@ import datetime
 import openai
 
 # Configura tu clave de OpenAI
-openai.api_key = "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"
+openai.api_key = "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"
 
 st.set_page_config(page_title="INFONA", layout="centered")
 st.title("INFONA - Asistente Inteligente del Infonavit")
