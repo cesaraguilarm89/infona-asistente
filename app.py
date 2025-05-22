@@ -144,3 +144,40 @@ chat_flows = {
         "llamado_accion": "¿Te envío los datos de contacto por correo o por WhatsApp registrado?"
     }
 }
+
+
+
+# === MEJORAS EN PREGUNTAS PARA ENTENDER VARIACIONES LINGÜÍSTICAS ===
+
+chat_flows["duracion_credito"] = {
+    "variantes": [
+        "¿Cuándo acaba mi crédito?",
+        "¿Hasta cuándo tengo crédito?",
+        "¿Cuándo termina el crédito?",
+        "¿Me falta mucho por pagar?",
+        "¿En qué fecha acaba mi crédito?",
+        "¿Mi crédito ya va a terminar?",
+        "¿Cuánto tiempo me queda?",
+        "¿Aún debo?",
+        "¿Todavía tengo crédito?",
+        "¿Ya lo terminé de pagar?",
+        "¿Debo todavía?",
+        "¿Acaba pronto mi crédito?",
+        "¿Sigue activo mi crédito?",
+        "¿Está activo todavía?"
+    ],
+    "respuesta": "Carlos, tu crédito está activo y en buen estado. La fecha de término depende del tipo de crédito y tus pagos mensuales.",
+    "llamado_accion": "¿Quieres que te muestre tu saldo actualizado o el calendario de pagos?"
+}
+
+
+
+# === ACTUALIZACIÓN DE MENÚ CON ÍCONOS ===
+
+menu = {
+    "Inicio": "🏠 Inicio",
+    "Chatea con INFONA": "💬 Chatea con INFONA",
+    "Simulador de Crédito": "📊 Simulador de Crédito",
+    "Agendar Cita": "📅 Agendar Cita",
+    "Preguntas Frecuentes": "❓ Preguntas Frecuentes"
+}
