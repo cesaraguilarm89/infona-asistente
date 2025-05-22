@@ -75,109 +75,25 @@ elif seccion == "Preguntas Frecuentes":
 
 
 
-# === FLUJOS DE PREGUNTAS Y RESPUESTAS EXPANDIDAS PARA INFONA ===
+# === MENÚ LATERAL CON EMOJIS FUNCIONALES ===
+menu = st.sidebar.radio(
+    "Menú de navegación",
+    [
+        "🏠 Inicio",
+        "💬 Chatea con INFONA",
+        "📊 Simulador de Crédito",
+        "📅 Agendar Cita",
+        "❓ Preguntas Frecuentes"
+    ]
+)
 
-chat_flows = {
-    "consulta_credito": {
-        "variantes": [
-            "¿Cuánto tengo disponible de crédito?",
-            "¿Cuánto me presta Infonavit?",
-            "¿Qué crédito puedo obtener?",
-            "¿Me alcanza para una casa?",
-            "¿Tengo puntos suficientes?",
-            "¿Puedo ver mis puntos?",
-            "¿Ya junto los puntos?"
-        ],
-        "respuesta": "Carlos, tu crédito disponible depende de tus puntos acumulados y tu salario. Puedes consultarlo usando el simulador o tu precalificación actualizada.",
-        "llamado_accion": "¿Quieres que te muestre tu precalificación o el simulador de crédito?"
-    },
-    "consulta_pagos": {
-        "variantes": [
-            "¿Cuánto debo?",
-            "¿Cuál es el saldo de mi crédito?",
-            "¿Cuánto me toca pagar este mes?",
-            "¿Dónde puedo pagar?",
-            "¿Puedo adelantar pagos?",
-            "¿Cómo consulto mis pagos?"
-        ],
-        "respuesta": "Carlos, puedes consultar tu saldo actual accediendo con tu número de crédito. Los pagos pueden hacerse por transferencia, banco o vía patrón.",
-        "llamado_accion": "¿Te gustaría ver tu saldo actual o recibir la lista de lugares donde puedes pagar?"
-    },
-    "trámites_documentos": {
-        "variantes": [
-            "¿Cómo saco mi aviso de retención?",
-            "¿Qué papeles necesito para el crédito?",
-            "¿Dónde subo mis documentos?",
-            "¿Qué necesito llevar a mi cita?"
-        ],
-        "respuesta": "Carlos, para continuar con tu trámite necesitas subir tus documentos básicos: INE, comprobante de domicilio y precalificación. El aviso de retención se genera en línea.",
-        "llamado_accion": "¿Quieres que te muestre el portal para subir tus documentos o para generar tu aviso de retención?"
-    },
-    "agendar_cita": {
-        "variantes": [
-            "¿Cómo agendo una cita?",
-            "¿Hay citas disponibles?",
-            "¿Dónde puedo ir en persona?",
-            "¿Puedo reagendar mi cita?"
-        ],
-        "respuesta": "Carlos, puedes agendar tu cita directamente desde esta app en la sección 'Agendar Cita'. Las ubicaciones varían según tu ciudad.",
-        "llamado_accion": "¿Deseas agendar tu cita ahora o ver las oficinas disponibles?"
-    },
-    "simulador_credito": {
-        "variantes": [
-            "Hazme una simulación",
-            "¿Puedo hacer un simulador?",
-            "¿Me alcanza con mi sueldo?",
-            "¿Cuánto me presta Infonavit si gano $10,000?"
-        ],
-        "respuesta": "Carlos, con tu ingreso mensual, podemos hacer una simulación aproximada del crédito que puedes recibir, y cuánto pagarías al mes.",
-        "llamado_accion": "¿Quieres iniciar el simulador ahora mismo?"
-    },
-    "atencion_contacto": {
-        "variantes": [
-            "¿Hay alguien que me atienda?",
-            "¿Puedo hablar con alguien?",
-            "¿Me puedes mandar la info a mi WhatsApp?",
-            "¿Tienes un número de contacto?"
-        ],
-        "respuesta": "Carlos, puedo ayudarte desde aquí, pero si prefieres atención personalizada, puedo enviarte la información de contacto de Infonatel o del centro más cercano.",
-        "llamado_accion": "¿Te envío los datos de contacto por correo o por WhatsApp registrado?"
-    }
-}
-
-
-
-# === MEJORAS EN PREGUNTAS PARA ENTENDER VARIACIONES LINGÜÍSTICAS ===
-
-chat_flows["duracion_credito"] = {
-    "variantes": [
-        "¿Cuándo acaba mi crédito?",
-        "¿Hasta cuándo tengo crédito?",
-        "¿Cuándo termina el crédito?",
-        "¿Me falta mucho por pagar?",
-        "¿En qué fecha acaba mi crédito?",
-        "¿Mi crédito ya va a terminar?",
-        "¿Cuánto tiempo me queda?",
-        "¿Aún debo?",
-        "¿Todavía tengo crédito?",
-        "¿Ya lo terminé de pagar?",
-        "¿Debo todavía?",
-        "¿Acaba pronto mi crédito?",
-        "¿Sigue activo mi crédito?",
-        "¿Está activo todavía?"
-    ],
-    "respuesta": "Carlos, tu crédito está activo y en buen estado. La fecha de término depende del tipo de crédito y tus pagos mensuales.",
-    "llamado_accion": "¿Quieres que te muestre tu saldo actualizado o el calendario de pagos?"
-}
-
-
-
-# === ACTUALIZACIÓN DE MENÚ CON ÍCONOS ===
-
-menu = {
-    "Inicio": "🏠 Inicio",
-    "Chatea con INFONA": "💬 Chatea con INFONA",
-    "Simulador de Crédito": "📊 Simulador de Crédito",
-    "Agendar Cita": "📅 Agendar Cita",
-    "Preguntas Frecuentes": "❓ Preguntas Frecuentes"
-}
+if menu.startswith("🏠"):
+    mostrar_inicio()
+elif menu.startswith("💬"):
+    mostrar_chat()
+elif menu.startswith("📊"):
+    mostrar_simulador()
+elif menu.startswith("📅"):
+    mostrar_agendar()
+elif menu.startswith("❓"):
+    mostrar_preguntas()
