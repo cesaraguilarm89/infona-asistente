@@ -19,7 +19,7 @@ def guardar_cita(nombre, curp, fecha, sede):
     conn.close()
 
 if menu == "Inicio":
-    st.image("infonavit_logo.png", width=150)
+    st.image("infonavit_logo.PNG", width=150)
     st.markdown("**Bienvenido a INFONA.** Este asistente te ayuda a simular tu crédito y agendar citas con Infonavit.")
 
 elif menu == "Simulador de Crédito":
