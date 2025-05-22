@@ -23,9 +23,7 @@ st.markdown('<style>body {background-color: #ffffff; color: #111;}</style>', uns
 
 # Imagen de bienvenida
 st.sidebar.image("infonavit_logo.PNG", width=150)
-seccion = st.sidebar.radio("Menú de navegación", ["Inicio", "Chatea con INFONA", "Simulador de Crédito", "Agendar Cita", "Preguntas Frecuentes"])
-
-# Diccionario de respuestas simuladas
+seccion = # Diccionario de respuestas simuladas
 respuestas = {
     "hola": "Hola, soy INFONA, tu asistente digital. ¿En qué puedo ayudarte hoy?",
     "adiós": "Gracias por usar INFONA. ¿Quieres que los pendientes te los mande a tu correo o WhatsApp registrado?",
@@ -96,4 +94,47 @@ menu_opciones = {
     "Simulador": "📊 Simulador de Crédito",
     "Cita": "📅 Agendar Cita",
     "FAQ": "❓ Preguntas Frecuentes"
+}
 
+seleccion = ),
+    key="menu_navegacion"
+)
+
+if seleccion == menu_opciones["Inicio"]:
+    mostrar_inicio()
+elif seleccion == menu_opciones["Chat"]:
+    mostrar_chat()
+elif seleccion == menu_opciones["Simulador"]:
+    mostrar_simulador()
+elif seleccion == menu_opciones["Cita"]:
+    mostrar_agendar()
+elif seleccion == menu_opciones["FAQ"]:
+    mostrar_preguntas()
+
+
+
+# === MENÚ LATERAL CON CLAVES SEGURAS Y KEY ÚNICA ===
+menu_opciones = {
+    "Inicio": "🏠 Inicio",
+    "Chat": "💬 Chatea con INFONA",
+    "Simulador": "📊 Simulador de Crédito",
+    "Cita": "📅 Agendar Cita",
+    "FAQ": "❓ Preguntas Frecuentes"
+}
+
+seleccion = st.sidebar.radio(
+    "Menú de navegación",
+    list(menu_opciones.values()),
+    key="menu_navegacion"
+)
+
+if seleccion == menu_opciones["Inicio"]:
+    mostrar_inicio()
+elif seleccion == menu_opciones["Chat"]:
+    mostrar_chat()
+elif seleccion == menu_opciones["Simulador"]:
+    mostrar_simulador()
+elif seleccion == menu_opciones["Cita"]:
+    mostrar_agendar()
+elif seleccion == menu_opciones["FAQ"]:
+    mostrar_preguntas()
