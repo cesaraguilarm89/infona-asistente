@@ -103,19 +103,19 @@ elif seccion == "Preguntas Frecuentes":
     ]
 
     mostrar_inicio()
-el    mostrar_chat()
-el    mostrar_simulador()
-el    mostrar_agendar()
-el    mostrar_preguntas()
+elif    mostrar_chat()
+elif    mostrar_simulador()
+elif    mostrar_agendar()
+elif    mostrar_preguntas()
 
 
 # === MENÚ LATERAL CON EMOJIS FUNCIONALES CORREGIDO ===
 
     mostrar_inicio()
-el    mostrar_chat()
-el    mostrar_simulador()
-el    mostrar_agendar()
-el    mostrar_preguntas()
+elif    mostrar_chat()
+elif    mostrar_simulador()
+elif    mostrar_agendar()
+elif    mostrar_preguntas()
 
 
 # === MENÚ LATERAL SIN EMOJIS EN LA LÓGICA ===
