@@ -41,12 +41,10 @@ def guardar_cita(nombre, curp, fecha, sede):
     conn.commit()
     conn.close()
 
-# 🏠
 if menu == "Inicio":
     st.subheader("Bienvenido a INFONA")
     st.markdown("Te damos la bienvenida a INFONA, tu asistente para conocer tu crédito de vivienda, agendar citas y resolver dudas de forma confiable.")
 
-el# 💬
 if menu == "Chatea con INFONA":
     st.subheader("Chatea con INFONA")
     st.write("Escribe tu pregunta sobre créditos, pagos, citas o trámites:")
@@ -77,7 +75,6 @@ if menu == "Chatea con INFONA":
         st.success(f"INFONA responde a Zuri: {respuesta} ¿Deseas que te lo mande por correo o WhatsApp registrado?")
 
 
-el# 📊
 if menu == "Simulador de Crédito":
     st.subheader("Simulador de Crédito INFONA")
     ingreso = st.number_input("¿Cuál es tu ingreso mensual?", min_value=1000)
@@ -86,7 +83,6 @@ if menu == "Simulador de Crédito":
         credito = ingreso * 10 + años * 1000
         st.success(f"Crédito estimado: ${credito:,.2f} MXN")
 
-el# 📅
 if menu == "Agendar Cita":
     st.subheader("Agenda tu Cita en INFONA")
     nombre = st.text_input("Nombre completo")
@@ -97,7 +93,6 @@ if menu == "Agendar Cita":
         guardar_cita(nombre, curp, fecha, sede)
         st.success("Tu cita ha sido registrada correctamente.")
 
-el# ❓
 if menu == "Preguntas Frecuentes":
     st.subheader("Preguntas Frecuentes")
     st.markdown("""
