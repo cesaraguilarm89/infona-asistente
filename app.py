@@ -43,13 +43,11 @@ def guardar_cita(nombre, curp, fecha, sede):
 
 # 🏠
 if menu == "Inicio":
-    st.subheader("Bienvenido a INFONA")
-    st.markdown("Te damos la bienvenida a INFONA, tu asistente para conocer tu crédito de vivienda, agendar citas y resolver dudas de forma confiable.")
 
-el# 💬
-if menu == "Chatea con INFONA":
-    st.subheader("Chatea con INFONA")
-    st.write("Escribe tu pregunta sobre créditos, pagos, citas o trámites:")
+    st.markdown("### ¡Hola, soy **INFONA**!")
+    st.markdown("Soy tu asistente para ayudarte con tu crédito de vivienda. Puedes preguntarme lo que necesites.")
+    st.markdown("---")
+
     pregunta = st.text_input("Tu pregunta")
     if pregunta:
         pregunta_limpia = pregunta.lower()
