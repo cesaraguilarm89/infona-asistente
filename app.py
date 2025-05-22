@@ -41,11 +41,11 @@ def guardar_cita(nombre, curp, fecha, sede):
     conn.commit()
     conn.close()
 
-if menu == "Inicio":
+if menu == "Inicio"  # 🏠:
     st.subheader("Bienvenido a INFONA")
     st.markdown("Te damos la bienvenida a INFONA, tu asistente para conocer tu crédito de vivienda, agendar citas y resolver dudas de forma confiable.")
 
-elif menu == "Chatea con INFONA":
+elif menu == "Chatea con INFONA"  # 💬:
     st.subheader("Chatea con INFONA")
     st.write("Escribe tu pregunta sobre créditos, pagos, citas o trámites:")
     pregunta = st.text_input("Tu pregunta")
@@ -72,10 +72,10 @@ elif menu == "Chatea con INFONA":
         else:
             respuesta = "Gracias por tu pregunta. Puedo ayudarte con temas como pagos, simulaciones o citas."
 
-        st.success(f"INFONA responde: {respuesta} ¿Deseas que te lo mande por correo o WhatsApp registrado?")
+        st.success(f"INFONA responde a Zuri: {respuesta} ¿Deseas que te lo mande por correo o WhatsApp registrado?")
 
 
-elif menu == "Simulador de Crédito":
+elif menu == "Simulador de Crédito"  # 📊:
     st.subheader("Simulador de Crédito INFONA")
     ingreso = st.number_input("¿Cuál es tu ingreso mensual?", min_value=1000)
     años = st.slider("¿Cuántos años has cotizado?", 0, 40, 5)
@@ -83,7 +83,7 @@ elif menu == "Simulador de Crédito":
         credito = ingreso * 10 + años * 1000
         st.success(f"Crédito estimado: ${credito:,.2f} MXN")
 
-elif menu == "Agendar Cita":
+elif menu == "Agendar Cita"  # 📅:
     st.subheader("Agenda tu Cita en INFONA")
     nombre = st.text_input("Nombre completo")
     curp = st.text_input("CURP")
@@ -93,7 +93,7 @@ elif menu == "Agendar Cita":
         guardar_cita(nombre, curp, fecha, sede)
         st.success("Tu cita ha sido registrada correctamente.")
 
-elif menu == "Preguntas Frecuentes":
+elif menu == "Preguntas Frecuentes"  # ❓:
     st.subheader("Preguntas Frecuentes")
     st.markdown("""
 **¿Qué es INFONA?**  
