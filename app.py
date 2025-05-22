@@ -103,19 +103,11 @@ elif seccion == "Preguntas Frecuentes":
     ]
 
     mostrar_inicio()
-elif    mostrar_chat()
-elif    mostrar_simulador()
-elif    mostrar_agendar()
-elif    mostrar_preguntas()
 
 
 # === MENÚ LATERAL CON EMOJIS FUNCIONALES CORREGIDO ===
 
     mostrar_inicio()
-elif    mostrar_chat()
-elif    mostrar_simulador()
-elif    mostrar_agendar()
-elif    mostrar_preguntas()
 
 
 # === MENÚ LATERAL SIN EMOJIS EN LA LÓGICA ===
@@ -145,6 +137,32 @@ elif seleccion == menu_opciones["FAQ"]:
 
 
 # === MENÚ LATERAL CON CLAVES SEGURAS (SIN EMOJIS EN CONDICIONES) ===
+menu_opciones = {
+    "Inicio": "🏠 Inicio",
+    "Chat": "💬 Chatea con INFONA",
+    "Simulador": "📊 Simulador de Crédito",
+    "Cita": "📅 Agendar Cita",
+    "FAQ": "❓ Preguntas Frecuentes"
+}
+
+seleccion = st.sidebar.radio(
+    "Menú de navegación",
+    list(menu_opciones.values())
+)
+
+if seleccion == menu_opciones["Inicio"]:
+    mostrar_inicio()
+elif seleccion == menu_opciones["Chat"]:
+    mostrar_chat()
+elif seleccion == menu_opciones["Simulador"]:
+    mostrar_simulador()
+elif seleccion == menu_opciones["Cita"]:
+    mostrar_agendar()
+elif seleccion == menu_opciones["FAQ"]:
+    mostrar_preguntas()
+
+
+# === MENÚ LATERAL CON CLAVES SEGURAS (SIN ERRORES DE SINTAXIS) ===
 menu_opciones = {
     "Inicio": "🏠 Inicio",
     "Chat": "💬 Chatea con INFONA",
