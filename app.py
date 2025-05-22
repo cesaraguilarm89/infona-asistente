@@ -31,7 +31,7 @@ def responder_mensaje(mensaje):
         (['hola', 'buenos dias', 'buenas tardes', 'buenas'], '¡Hola! ¿En qué puedo ayudarte hoy?'),
         (['adios', 'hasta luego', 'nos vemos'], 'Hasta pronto. ¿Quieres que los pendientes te los mande a tu correo o WhatsApp registrado?'),
         (['cuanto', 'debo', 'adeudo', 'saldo pendiente', 'resta pagar'], 'Tu monto actual depende de tu crédito. ¿Quieres abrir el portal para consultarlo o que te lo envíe?'),
-        (['fecha de pago', 'cuando pago', 'fecha límite', 'pago siguiente'], 'Tu fecha de pago es el día 17 de cada bimestre. ¿Quieres agendar un recordatorio?'),
+        (['fecha de pago', 'cuando pago', 'fecha limite', 'pago siguiente'], 'Tu fecha de pago es el día 17 de cada bimestre. ¿Quieres agendar un recordatorio?'),
         (['monto de mi credito', 'cuanto me prestaron', 'total del credito'], 'Tu crédito total es de $550,000 MXN. ¿Te gustaría ver el desglose completo?'),
         (['cuanto me falta por pagar', 'cuanto me falta por liquidar'], 'Te falta por pagar aproximadamente $120,000 MXN. ¿Deseas una proyección detallada?'),
         (['haz una simulacion', 'simula', 'calculo rapido'], 'Simulando tu mejor escenario... podrías terminar en 5 años si aportas $3,000 adicionales al mes. ¿Te muestro cómo?'),
@@ -59,7 +59,6 @@ if menu == "Inicio":
     st.subheader("Bienvenido a INFONA")
     st.markdown("Te damos la bienvenida a INFONA, tu asistente para conocer tu crédito de vivienda, agendar citas y resolver dudas de forma confiable.")
 
-el# 💬
 if menu == "Chatea con INFONA":
     st.subheader("Chatea con INFONA")
     st.write("Escribe tu pregunta sobre créditos, pagos, citas o trámites:")
@@ -90,7 +89,6 @@ if menu == "Chatea con INFONA":
         st.success(f"INFONA responde a Zuri: {respuesta} ¿Deseas que te lo mande por correo o WhatsApp registrado?")
 
 
-el# 📊
 if menu == "Simulador de Crédito":
     st.subheader("Simulador de Crédito INFONA")
     ingreso = st.number_input("¿Cuál es tu ingreso mensual?", min_value=1000)
@@ -99,7 +97,6 @@ if menu == "Simulador de Crédito":
         credito = ingreso * 10 + años * 1000
         st.success(f"Crédito estimado: ${credito:,.2f} MXN")
 
-el# 📅
 if menu == "Agendar Cita":
     st.subheader("Agenda tu Cita en INFONA")
     nombre = st.text_input("Nombre completo")
@@ -110,7 +107,6 @@ if menu == "Agendar Cita":
         guardar_cita(nombre, curp, fecha, sede)
         st.success("Tu cita ha sido registrada correctamente.")
 
-el# ❓
 if menu == "Preguntas Frecuentes":
     st.subheader("Preguntas Frecuentes")
     st.markdown("""
