@@ -28,7 +28,7 @@ def obtener_respuesta(pregunta):
     return "Gracias por tu consulta. Actualmente INFONA responde preguntas relacionadas con tu crédito de vivienda, pagos, citas y requisitos. Estamos mejorando cada día para ayudarte mejor."
 
 # --- Menú lateral ---
-st.sidebar.image("infona_avatar.jpg", width=150)
+st.sidebar.image("infonavit_logo.PNG", width=150)
 st.sidebar.markdown("## Menú de navegación")
 opcion = st.sidebar.radio("", ["🏠 Inicio", "💬 Chatea con INFONA", "🧮 Simulador de Crédito", "🗓️ Agendar Cita", "❓ Preguntas Frecuentes"])
 
