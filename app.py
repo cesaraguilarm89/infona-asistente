@@ -1,4 +1,22 @@
 
+# === FUNCIONES DE NAVEGACIÓN PLACEHOLDER ===
+def mostrar_inicio():
+    st.write("Bienvenido a INFONA. Elige una opción del menú para comenzar.")
+
+def mostrar_chat():
+    st.write("Puedes escribir tu duda sobre créditos, pagos, citas o trámites.")
+
+def mostrar_simulador():
+    st.write("Simula tu crédito aquí. Ingresa tus datos para continuar.")
+
+def mostrar_agendar():
+    st.write("Agenda tu cita seleccionando la fecha y módulo disponible.")
+
+def mostrar_preguntas():
+    st.write("Aquí encontrarás respuestas a las preguntas más frecuentes.")
+
+
+
 import streamlit as st
 import datetime
 
@@ -76,7 +94,6 @@ elif seccion == "Preguntas Frecuentes":
 
 
 # === MENÚ LATERAL CON EMOJIS FUNCIONALES ===
-menu = st.sidebar.radio(
     "Menú de navegación",
     [
         "🏠 Inicio",
