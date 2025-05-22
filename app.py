@@ -1,62 +1,64 @@
-
 import streamlit as st
 from diccionario_extendido import respuestas_extensas
 
-st.set_page_config(page_title="INFONA - Asistente Inteligente", page_icon="🏠", layout="centered")
+# Estilo personalizado
+st.set_page_config(page_title="INFONA - Asistente Inteligente de Vivienda", page_icon=":house:", layout="wide")
 
-# Menú lateral
-seccion = st.sidebar.radio("🏛️ Menú de navegación", [
-    "🏠 Inicio",
-    "💬 Chatea con INFONA",
-    "📊 Simulador de Crédito",
-    "📅 Agendar Cita",
-    "❓ Preguntas Frecuentes"
-])
+st.markdown("""
+    <style>
+        .main {
+            background-color: white;
+            color: black;
+        }
+        .stApp {
+            background-color: #ffffff;
+        }
+        header, footer {visibility: hidden;}
+        .css-1v3fvcr {
+            background-color: #e10600 !important;
+        }
+        .stButton>button {
+            background-color: #e10600 !important;
+            color: white !important;
+        }
+        .stTextInput>div>div>input {
+            border: 1px solid #e10600;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-st.title("INFONA - Asistente Inteligente de Vivienda")
+menu = st.sidebar.radio("Menú de navegación", ["Inicio", "Chatea con INFONA", "Simulador de Crédito", "Agendar Cita", "Preguntas Frecuentes"])
 
-if seccion == "🏠 Inicio":
-    st.subheader("Bienvenido a INFONA")
-    st.write("Consulta, simula y agenda de forma sencilla cualquier trámite relacionado con tu crédito de vivienda.")
+if menu == "Inicio":
+    st.image("logo_infona_redes.png", width=100)
+    st.title("INFONA - Asistente Inteligente de Vivienda")
+    st.write("Consulta, simula y agenda de forma sencilla.")
 
-elif seccion == "💬 Chatea con INFONA":
-    st.subheader("Chatea con INFONA")
-    st.write("Escribe tu pregunta sobre créditos, pagos, citas o trámites:")
+elif menu == "Chatea con INFONA":
+    st.header("Chatea con INFONA")
+    pregunta = st.text_input("Escribe tu pregunta sobre créditos, pagos, citas o trámites:")
+    if pregunta:
+        respuesta = respuestas_extensas.get(pregunta.lower(), "Gracias por tu consulta. Actualmente INFONA responde preguntas relacionadas con tu crédito de vivienda, citas y requisitos.")
+        st.success(f"INFONA responde: {respuesta}")
 
-    user_input = st.text_input("Tu mensaje:")
-
-    if user_input:
-        respuesta = "Gracias por tu consulta. Actualmente INFONA responde preguntas relacionadas con tu crédito de vivienda, citas y requisitos."
-        for claves, r in respuestas_extensas.items():
-            if all(palabra in user_input.lower() for palabra in claves):
-                respuesta = r
-                break
-        st.success(f"INFONA responde:
-{respuesta}")
-
-elif seccion == "📊 Simulador de Crédito":
-    st.subheader("Simulador de Crédito")
-    ingreso = st.number_input("Ingresa tu ingreso mensual (MXN):", min_value=1000, step=500)
+elif menu == "Simulador de Crédito":
+    st.header("Simulador de Crédito")
+    ingreso = st.number_input("¿Cuál es tu ingreso mensual aproximado?", min_value=0)
     if ingreso:
-        estimado = ingreso * 12 * 0.3
-        st.write(f"Podrías obtener aproximadamente: ${estimado:,.2f} MXN en crédito.")
+        estimado = ingreso * 40
+        st.write(f"Con un ingreso mensual de ${ingreso}, podrías tener acceso a un crédito aproximado de ${estimado}")
 
-elif seccion == "📅 Agendar Cita":
-    st.subheader("Agenda tu Cita")
-    nombre = st.text_input("Nombre completo")
-    correo = st.text_input("Correo electrónico")
-    fecha = st.date_input("Selecciona una fecha")
-    if st.button("Agendar"):
-        st.success("Tu cita ha sido agendada. Recibirás confirmación por correo.")
+elif menu == "Agendar Cita":
+    st.header("Agendar una Cita")
+    st.date_input("Selecciona la fecha deseada")
+    st.time_input("Selecciona la hora deseada")
+    st.text_input("Nombre completo")
+    st.text_input("Correo electrónico")
+    st.button("Agendar")
 
-elif seccion == "❓ Preguntas Frecuentes":
-    st.subheader("Preguntas Frecuentes")
-    st.markdown("""
-    - ¿Cuántos puntos necesito para un crédito?
-    - ¿Cómo obtengo mi NSS?
-    - ¿Dónde consulto mi saldo?
-    - ¿Qué documentos debo llevar a mi cita?
-    - ¿Cómo simulo mi crédito?
-    """)
-
-# Fin del archivo
+elif menu == "Preguntas Frecuentes":
+    st.header("Preguntas Frecuentes")
+    st.write("1. ¿Cómo obtengo mi crédito INFONAVIT?")
+    st.write("2. ¿Qué requisitos necesito?")
+    st.write("3. ¿Dónde puedo agendar una cita?")
+    st.write("4. ¿Cómo consulto mi saldo?")
