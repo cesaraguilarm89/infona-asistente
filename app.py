@@ -2,6 +2,8 @@
 import streamlit as st
 import sqlite3
 import datetime
+import re
+import unicodedata
 
 st.set_page_config(page_title="INFONA", layout="centered")
 st.image("logo_infona_redes.png", width=120)
@@ -16,6 +18,20 @@ menu = st.sidebar.radio("Menú de navegación", [
     "Preguntas Frecuentes"
 ])
 
+def limpiar_texto(texto):
+    texto = texto.lower()
+    texto = ''.join(c for c in unicodedata.normalize('NFD', texto)
+                    if unicodedata.category(c) != 'Mn')
+    texto = re.sub(r'[¿?¡!.,;:]', '', texto)
+    return texto
+
+def responder_mensaje(mensaje):
+    texto = limpiar_texto(mensaje)
+    for claves, respuesta in {('que es', 'infona'): 'INFONA es un asistente inteligente diseñado para orientarte sobre temas relacionados con tu crédito de vivienda.', ('cuanto', 'credito'): 'Puedes usar nuestro simulador de crédito ingresando tu salario mensual y años de cotización.', ('agendar', 'cita'): "Desde la pestaña 'Agendar cita' puedes registrar una fecha y lugar para tu atención presencial.", ('infona', 'infonavit'): 'INFONA es una herramienta complementaria que orienta sobre temas de vivienda, basada en información pública.', ('tramite', 'oficial'): 'No. INFONA es solo una guía. Los trámites oficiales se realizan directamente en Infonavit.', ('requisito', 'credito'): 'Necesitas tener relación laboral activa, al menos 116 puntos y una precalificación positiva.', ('pago',): 'No. Esta plataforma es solo informativa. Para pagos, consulta directamente tu portal Infonavit.', ('dato', 'seguro'): 'Sí. No almacenamos ni compartimos información sin consentimiento.', ('infona', 'cobra'): 'No. Es una herramienta gratuita de consulta y orientación.', ('duda', 'adicional'): 'Puedes contactarnos por los canales oficiales de atención o visitar un CESI.'}.items():
+        if all(palabra in texto for palabra in claves):
+            return respuesta
+    return "Gracias por tu consulta. Actualmente INFONA responde preguntas relacionadas con tu crédito de vivienda, citas y requisitos. Estamos mejorando cada día para ayudarte mejor."
+
 def guardar_cita(nombre, curp, fecha, sede):
     conn = sqlite3.connect("citas.db")
     c = conn.cursor()
@@ -24,13 +40,6 @@ def guardar_cita(nombre, curp, fecha, sede):
     c.execute("INSERT INTO citas VALUES (?, ?, ?, ?)", (nombre, curp, str(fecha), sede))
     conn.commit()
     conn.close()
-
-def responder_chat(texto):
-    texto = texto.lower()
-    for clave in ['que es infona', 'cuanto credito tengo', 'agendar cita', 'infona es parte de infonavit', 'tramites oficiales', 'requisitos para obtener credito', 'hacer pagos', 'datos seguros', 'infona cobra', 'dudas adicionales']:
-        if clave in texto:
-            return {'que es infona': 'INFONA es un asistente inteligente diseñado para orientarte sobre temas relacionados con tu crédito de vivienda.', 'cuanto credito tengo': 'Puedes usar nuestro simulador de crédito ingresando tu salario mensual y años de cotización.', 'agendar cita': "Desde la pestaña 'Agendar cita' puedes registrar una fecha y lugar para tu atención presencial.", 'infona es parte de infonavit': 'INFONA es una herramienta complementaria que orienta sobre temas de vivienda, basada en información pública.', 'tramites oficiales': 'No. INFONA es solo una guía. Los trámites oficiales se realizan directamente en Infonavit.', 'requisitos para obtener credito': 'Necesitas tener relación laboral activa, al menos 116 puntos y una precalificación positiva.', 'hacer pagos': 'No. Esta plataforma es solo informativa. Para pagos, consulta directamente tu portal Infonavit.', 'datos seguros': 'Sí. No almacenamos ni compartimos información sin consentimiento.', 'infona cobra': 'No. Es una herramienta gratuita de consulta y orientación.', 'dudas adicionales': 'Puedes contactarnos por los canales oficiales de atención o visitar un CESI.'}[clave]
-    return "Gracias por tu consulta. Actualmente INFONA responde preguntas relacionadas con tu crédito de vivienda, citas y requisitos. Estamos mejorando cada día para ayudarte mejor."
 
 if menu == "Inicio":
     st.subheader("Bienvenido a INFONA")
@@ -41,7 +50,7 @@ elif menu == "Chatea con INFONA":
     st.markdown("Escribe tu pregunta sobre créditos, citas o requisitos:")
     pregunta = st.text_input("Tu mensaje:")
     if pregunta:
-        respuesta = responder_chat(pregunta)
+        respuesta = responder_mensaje(pregunta)
         st.markdown("**INFONA responde:**")
         st.success(respuesta)
 
