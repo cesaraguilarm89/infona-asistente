@@ -75,6 +75,7 @@ if menu == "Chatea con INFONA":
         st.success(f"INFONA responde a Zuri: {respuesta} ¿Deseas que te lo mande por correo o WhatsApp registrado?")
 
 
+el# 📊
 if menu == "Simulador de Crédito":
     st.subheader("Simulador de Crédito INFONA")
     ingreso = st.number_input("¿Cuál es tu ingreso mensual?", min_value=1000)
@@ -93,6 +94,7 @@ if menu == "Agendar Cita":
         guardar_cita(nombre, curp, fecha, sede)
         st.success("Tu cita ha sido registrada correctamente.")
 
+el# ❓
 if menu == "Preguntas Frecuentes":
     st.subheader("Preguntas Frecuentes")
     st.markdown("""
