@@ -27,9 +27,22 @@ def limpiar_texto(texto):
 
 def responder_mensaje(mensaje):
     texto = limpiar_texto(mensaje)
-    for claves, respuesta in {('hola',): '¡Hola! ¿En qué puedo ayudarte hoy?', ('buenos dias',): 'Buenos días, ¿cómo puedo asistirte con tu crédito de vivienda?', ('buenas tardes',): 'Buenas tardes, ¿necesitas ayuda con tu crédito o citas?', ('adios',): 'Hasta pronto. ¿Quieres que los pendientes te los mande a tu correo o WhatsApp registrado?', ('hasta luego',): 'Nos vemos pronto. ¿Te gustaría que enviemos un resumen a tu correo?', ('cuanto', 'pagar'): 'Tu monto depende de tu crédito y aportaciones. ¿Quieres que te mostremos cómo consultarlo?', ('cuanto', 'debo'): 'Podemos ayudarte a revisar cuánto debes. ¿Te gustaría abrir el portal oficial?', ('estado', 'cuenta'): 'Tu estado de cuenta está disponible en tu sesión Infonavit. ¿Te muestro cómo acceder?', ('pago', 'bimestre'): 'Los pagos se calculan bimestralmente. ¿Te gustaría conocer tu calendario de pagos?', ('saldo', 'favor'): 'Tu saldo a favor lo puedes consultar con tu NSS. ¿Deseas que te expliquemos cómo?', ('nss', 'olvidado'): 'Puedes recuperar tu NSS en el portal del IMSS. ¿Quieres el enlace directo?', ('actualizar', 'datos'): 'Puedes actualizar tus datos desde tu perfil en el portal Infonavit. ¿Te muestro cómo hacerlo?', ('ayuda',): 'Estoy aquí para orientarte. ¿Sobre qué tema necesitas apoyo?', ('necesito', 'ayuda'): 'Claro, dime qué necesitas y te ayudaré lo mejor posible.'}.items():
-        if all(palabra in texto for palabra in claves):
+    respuestas = [
+        (['hola', 'buenos dias', 'buenas tardes', 'buenas'], '¡Hola! ¿En qué puedo ayudarte hoy?'),
+        (['adios', 'hasta luego', 'nos vemos'], 'Hasta pronto. ¿Quieres que los pendientes te los mande a tu correo o WhatsApp registrado?'),
+        (['cuanto', 'debo', 'adeudo', 'saldo pendiente', 'resta pagar'], 'Tu monto actual depende de tu crédito. ¿Quieres abrir el portal para consultarlo o que te lo envíe?'),
+        (['fecha de pago', 'cuando pago', 'fecha límite', 'pago siguiente'], 'Tu fecha de pago es el día 17 de cada bimestre. ¿Quieres agendar un recordatorio?'),
+        (['monto de mi credito', 'cuanto me prestaron', 'total del credito'], 'Tu crédito total es de $550,000 MXN. ¿Te gustaría ver el desglose completo?'),
+        (['cuanto me falta por pagar', 'cuanto me falta por liquidar'], 'Te falta por pagar aproximadamente $120,000 MXN. ¿Deseas una proyección detallada?'),
+        (['haz una simulacion', 'simula', 'calculo rapido'], 'Simulando tu mejor escenario... podrías terminar en 5 años si aportas $3,000 adicionales al mes. ¿Te muestro cómo?'),
+        (['ya pago mi jefe', 'aportacion patronal'], 'Tu patrón realizó la última aportación hace 15 días. ¿Quieres recibir notificaciones cada vez que lo haga?'),
+        (['programa apoyo', 'incentivo', 'ayuda especial'], 'Actualmente hay un programa de apoyo para liquidaciones anticipadas. ¿Te interesa saber si aplicas?'),
+        (['que me recomiendas', 'sugerencia', 'mejor opcion'], 'Puedo mostrarte un plan personalizado según tu capacidad de pago. ¿Te gustaría intentarlo?')
+    ]
+    for claves, respuesta in respuestas:
+        if all(any(k in texto for k in grupo) for grupo in [claves]):
             return respuesta
+    return "No entendí completamente tu pregunta, pero puedo ayudarte con créditos, pagos, citas o simulaciones. ¿Qué necesitas hoy?"
     return "Gracias por tu consulta. Actualmente INFONA responde temas sobre crédito, citas y requisitos. ¿Te gustaría que te ayudemos en algo específico?"
 
 def guardar_cita(nombre, curp, fecha, sede):
