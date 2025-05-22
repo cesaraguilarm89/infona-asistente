@@ -54,21 +54,21 @@ elif menu == "Chatea con INFONA":
         respuesta = ""
 
         if any(p in pregunta_limpia for p in ["cuánto debo", "debo", "cuánto me falta", "liquidar", "terminar", "cuánto me queda"]):
-            respuesta = "Tu saldo pendiente depende del monto original y tus pagos realizados. Podemos ayudarte a consultar tu estado actual."
+            respuesta = "Zuri actualmente tiene un saldo pendiente de $158,400 MXN. Este monto puede reducirse si realiza pagos anticipados."
         elif any(p in pregunta_limpia for p in ["fecha de pago", "cuando debo", "cuándo pago"]):
-            respuesta = "Tu fecha de pago depende del esquema que tengas con tu patrón o banco. Podemos revisar tu calendario de pagos."
+            respuesta = "La próxima fecha de pago de Zuri es el 5 de junio. El monto estimado es de $2,450 MXN."
         elif any(p in pregunta_limpia for p in ["monto de mi crédito", "crédito total", "cuánto me prestaron"]):
-            respuesta = "El monto de tu crédito original se puede consultar directamente desde tu perfil. ¿Quieres que lo revise contigo?"
+            respuesta = "Zuri recibió un crédito inicial por $435,000 MXN en el año 2022, bajo el esquema de crédito tradicional."
         elif any(p in pregunta_limpia for p in ["recomiendas", "mejor opción", "aconsejas"]):
-            respuesta = "Podemos ayudarte a elegir la mejor ruta: desde pagar anticipadamente hasta cambiar de esquema. ¿Quieres que analicemos tu caso?"
+            respuesta = "Para Zuri, lo más conveniente sería aplicar pagos dobles en los próximos 6 meses y beneficiarse del programa de descuento anticipado."
         elif any(p in pregunta_limpia for p in ["tiempo acabo", "cuándo termino", "cuando liquido"]):
-            respuesta = "Con base en tu salario y pagos actuales, podemos estimar una fecha tentativa de liquidación."
+            respuesta = "Si Zuri continúa con su ritmo de pagos actual, terminaría de liquidar su crédito en aproximadamente 6 años."
         elif any(p in pregunta_limpia for p in ["simulación", "mejor escenario"]):
-            respuesta = "Puedo ayudarte a simular diferentes escenarios para que elijas el que más te convenga."
+            respuesta = "Simulando el mejor escenario, Zuri podría reducir su plazo a 3.5 años si duplica su pago mensual actual."
         elif any(p in pregunta_limpia for p in ["incentivo", "programa", "apoyo", "beneficio"]):
-            respuesta = "Infonavit tiene programas como Descuentos por Pago Anticipado o Responsabilidad Compartida. ¿Te gustaría conocerlos?"
+            respuesta = "Zuri puede aplicar al programa 'Descuento por Liquidación Anticipada', vigente hasta diciembre. ¿Quieres ver si aplicas tú también?"
         elif any(p in pregunta_limpia for p in ["ya pagó", "mi jefe pagó", "aportación patrón"]):
-            respuesta = "Podemos revisar si tu patrón ha realizado la aportación reciente. ¿Te gustaría que te lo confirme?"
+            respuesta = "El patrón de Zuri realizó la última aportación el 15 de mayo. Está al corriente en sus obligaciones."
         else:
             respuesta = "Gracias por tu pregunta. Puedo ayudarte con temas como pagos, simulaciones o citas."
 
