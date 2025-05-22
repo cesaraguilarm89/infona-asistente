@@ -1,4 +1,3 @@
-
 import streamlit as st
 import sqlite3
 import datetime
@@ -43,7 +42,6 @@ def responder_mensaje(mensaje):
         if all(any(k in texto for k in grupo) for grupo in [claves]):
             return respuesta
     return "No entendí completamente tu pregunta, pero puedo ayudarte con créditos, pagos, citas o simulaciones. ¿Qué necesitas hoy?"
-    return "Gracias por tu consulta. Actualmente INFONA responde temas sobre crédito, citas y requisitos. ¿Te gustaría que te ayudemos en algo específico?"
 
 def guardar_cita(nombre, curp, fecha, sede):
     conn = sqlite3.connect("citas.db")
@@ -59,7 +57,7 @@ if menu == "Inicio":
     st.subheader("Bienvenido a INFONA")
     st.markdown("Te damos la bienvenida a INFONA, tu asistente para conocer tu crédito de vivienda, agendar citas y resolver dudas de forma confiable.")
 
-el# 💬
+# 💬
 if menu == "Chatea con INFONA":
     st.subheader("Chatea con INFONA")
     st.write("Escribe tu pregunta sobre créditos, pagos, citas o trámites:")
@@ -85,12 +83,11 @@ if menu == "Chatea con INFONA":
         elif any(p in pregunta_limpia for p in ["ya pagó", "mi jefe pagó", "aportación patrón"]):
             respuesta = "El patrón de Zuri realizó la última aportación el 15 de mayo. Está al corriente en sus obligaciones."
         else:
-            respuesta = "Gracias por tu pregunta. Puedo ayudarte con temas como pagos, simulaciones o citas."
+            respuesta = responder_mensaje(pregunta) # Usar la función general de respuesta si no hay coincidencias específicas para Zuri
 
-        st.success(f"INFONA responde a Zuri: {respuesta} ¿Deseas que te lo mande por correo o WhatsApp registrado?")
+        st.success(f"INFONA responde: {respuesta} ¿Deseas que te lo mande por correo o WhatsApp registrado?")
 
-
-el# 📊
+# 📊
 if menu == "Simulador de Crédito":
     st.subheader("Simulador de Crédito INFONA")
     ingreso = st.number_input("¿Cuál es tu ingreso mensual?", min_value=1000)
@@ -99,7 +96,7 @@ if menu == "Simulador de Crédito":
         credito = ingreso * 10 + años * 1000
         st.success(f"Crédito estimado: ${credito:,.2f} MXN")
 
-el# 📅
+# 📅
 if menu == "Agendar Cita":
     st.subheader("Agenda tu Cita en INFONA")
     nombre = st.text_input("Nombre completo")
@@ -110,16 +107,16 @@ if menu == "Agendar Cita":
         guardar_cita(nombre, curp, fecha, sede)
         st.success("Tu cita ha sido registrada correctamente.")
 
-el# ❓
+# ❓
 if menu == "Preguntas Frecuentes":
     st.subheader("Preguntas Frecuentes")
     st.markdown("""
-**¿Qué es INFONA?**  
-INFONA es un asistente virtual que te orienta sobre opciones de crédito para vivienda.  
+**¿Qué es INFONA?**
+INFONA es un asistente virtual que te orienta sobre opciones de crédito para vivienda.
 
-**¿Puedo hacer trámites oficiales aquí?**  
-INFONA es un asistente de orientación, los trámites deben formalizarse directamente en Infonavit.  
+**¿Puedo hacer trámites oficiales aquí?**
+INFONA es un asistente de orientación, los trámites deben formalizarse directamente en Infonavit.
 
-**¿Mis datos están seguros?**  
-Sí. No almacenamos ni compartimos tus datos personales sin tu consentimiento.  
+**¿Mis datos están seguros?**
+Sí. No almacenamos ni compartimos tus datos personales sin tu consentimiento.
 """)
