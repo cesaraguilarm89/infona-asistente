@@ -102,7 +102,6 @@ elif seccion == "Preguntas Frecuentes":
         "📅 Agendar Cita",
         "❓ Preguntas Frecuentes"
     ]
-)
 
 if menu.startswith("🏠"):
     mostrar_inicio()
