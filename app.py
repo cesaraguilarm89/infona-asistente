@@ -2,65 +2,85 @@
 import streamlit as st
 import sqlite3
 import datetime
-import openai
-
-# Configura tu clave de OpenAI
-openai.api_key = "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"
+import re
+import unicodedata
 
 st.set_page_config(page_title="INFONA", layout="centered")
-st.title("INFONA - Asistente Inteligente del Infonavit")
-st.subheader("Consulta tu crédito, agenda citas y chatea con IA.")
+st.image("logo_infona_redes.png", width=120)
+st.title("INFONA - Asistente Inteligente de Vivienda")
+st.caption("Consulta, simula y agenda de forma sencilla.")
 
-menu = st.sidebar.selectbox("Menú", ["Inicio", "Simulador de Crédito", "Agendar Cita", "Chat con INFONA"])
+menu = st.sidebar.radio("Menú de navegación", [
+    "Inicio",
+    "Chatea con INFONA",
+    "Simulador de Crédito",
+    "Agendar Cita",
+    "Preguntas Frecuentes"
+])
 
-# Base de datos local para guardar citas
+def limpiar_texto(texto):
+    texto = texto.lower()
+    texto = ''.join(c for c in unicodedata.normalize('NFD', texto)
+                    if unicodedata.category(c) != 'Mn')
+    texto = re.sub(r'[¿?¡!.,;:]', '', texto)
+    return texto
+
+def responder_mensaje(mensaje):
+    texto = limpiar_texto(mensaje)
+    for claves, respuesta in {('hola',): '¡Hola! ¿En qué puedo ayudarte hoy?', ('buenos dias',): 'Buenos días, ¿cómo puedo asistirte con tu crédito de vivienda?', ('buenas tardes',): 'Buenas tardes, ¿necesitas ayuda con tu crédito o citas?', ('adios',): 'Hasta pronto. ¿Quieres que los pendientes te los mande a tu correo o WhatsApp registrado?', ('hasta luego',): 'Nos vemos pronto. ¿Te gustaría que enviemos un resumen a tu correo?', ('cuanto', 'pagar'): 'Tu monto depende de tu crédito y aportaciones. ¿Quieres que te mostremos cómo consultarlo?', ('cuanto', 'debo'): 'Podemos ayudarte a revisar cuánto debes. ¿Te gustaría abrir el portal oficial?', ('estado', 'cuenta'): 'Tu estado de cuenta está disponible en tu sesión Infonavit. ¿Te muestro cómo acceder?', ('pago', 'bimestre'): 'Los pagos se calculan bimestralmente. ¿Te gustaría conocer tu calendario de pagos?', ('saldo', 'favor'): 'Tu saldo a favor lo puedes consultar con tu NSS. ¿Deseas que te expliquemos cómo?', ('nss', 'olvidado'): 'Puedes recuperar tu NSS en el portal del IMSS. ¿Quieres el enlace directo?', ('actualizar', 'datos'): 'Puedes actualizar tus datos desde tu perfil en el portal Infonavit. ¿Te muestro cómo hacerlo?', ('ayuda',): 'Estoy aquí para orientarte. ¿Sobre qué tema necesitas apoyo?', ('necesito', 'ayuda'): 'Claro, dime qué necesitas y te ayudaré lo mejor posible.'}.items():
+        if all(palabra in texto for palabra in claves):
+            return respuesta
+    return "Gracias por tu consulta. Actualmente INFONA responde temas sobre crédito, citas y requisitos. ¿Te gustaría que te ayudemos en algo específico?"
+
 def guardar_cita(nombre, curp, fecha, sede):
     conn = sqlite3.connect("citas.db")
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS citas
                  (nombre TEXT, curp TEXT, fecha TEXT, sede TEXT)''')
-    c.execute("INSERT INTO citas VALUES (?, ?, ?, ?)", (nombre, curp, str(fecha), sede))
+    c.execute("INSERT INTO citas VALUES (?, ?, ?, ?)", (nombre, curp, fecha, sede))
     conn.commit()
     conn.close()
 
-# Chatbot con GPT
-def responder_con_gpt(pregunta):
-    try:
-        respuesta = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": pregunta}],
-            temperature=0.6
-        )
-        return respuesta.choices[0].message["content"]
-    except Exception as e:
-        return f"Ocurrió un error al consultar la IA: {e}"
-
 if menu == "Inicio":
-    st.image("infonavit_logo.svg", width=120)
-    st.markdown("**Bienvenido a INFONA**: tu asistente confiable para trámites con Infonavit.")
+    st.subheader("Bienvenido a INFONA")
+    st.markdown("Te damos la bienvenida a INFONA, tu asistente para conocer tu crédito de vivienda, agendar citas y resolver dudas de forma confiable.")
+
+elif menu == "Chatea con INFONA":
+    st.subheader("Chatea con INFONA")
+    st.markdown("Escribe tu pregunta sobre créditos, pagos, citas o trámites:")
+    pregunta = st.text_input("Tu mensaje:")
+    if pregunta:
+        respuesta = responder_mensaje(pregunta)
+        st.markdown("**INFONA responde:**")
+        st.success(respuesta)
 
 elif menu == "Simulador de Crédito":
-    st.header("Simulador de Crédito")
+    st.subheader("Simulador de Crédito INFONA")
     ingreso = st.number_input("¿Cuál es tu ingreso mensual?", min_value=1000)
-    años = st.slider("¿Cuántos años has cotizado al Infonavit?", 0, 40, 5)
+    años = st.slider("¿Cuántos años has cotizado?", 0, 40, 5)
     if ingreso:
         credito = ingreso * 10 + años * 1000
         st.success(f"Crédito estimado: ${credito:,.2f} MXN")
 
 elif menu == "Agendar Cita":
-    st.header("Agenda una Cita en el CESI")
+    st.subheader("Agenda tu Cita en INFONA")
     nombre = st.text_input("Nombre completo")
     curp = st.text_input("CURP")
     fecha = st.date_input("Fecha deseada", min_value=datetime.date.today())
-    sede = st.selectbox("Sede", ["Oaxaca", "CDMX", "Monterrey", "Guadalajara"])
-    if st.button("Agendar"):
+    sede = st.selectbox("Sede", ["Oaxaca", "CDMX", "Guadalajara", "Monterrey"])
+    if st.button("Confirmar cita"):
         guardar_cita(nombre, curp, fecha, sede)
-        st.success(f"Cita registrada para {nombre} el {fecha} en {sede}.")
+        st.success("Tu cita ha sido registrada correctamente.")
 
-elif menu == "Chat con INFONA":
-    st.header("Asistente Virtual con IA")
-    user_input = st.text_input("Escribe tu duda:")
-    if user_input:
-        st.info("INFONA responde:")
-        respuesta = responder_con_gpt(user_input)
-        st.write(respuesta)
+elif menu == "Preguntas Frecuentes":
+    st.subheader("Preguntas Frecuentes")
+    st.markdown("""
+**¿Qué es INFONA?**  
+INFONA es un asistente virtual que te orienta sobre opciones de crédito para vivienda.  
+
+**¿Puedo hacer trámites oficiales aquí?**  
+INFONA es un asistente de orientación, los trámites deben formalizarse directamente en Infonavit.  
+
+**¿Mis datos están seguros?**  
+Sí. No almacenamos ni compartimos tus datos personales sin tu consentimiento.  
+""")
