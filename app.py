@@ -56,7 +56,7 @@ menu = st.sidebar.radio("Menú de navegación", ["Inicio", "Chatea con INFONA", 
 if menu == "Inicio":
     st.title("INFONA - Asistente Inteligente de Vivienda")
     st.markdown("Consulta, simula y agenda de forma sencilla.")
-    st.image("infona_logo.PNG", width=200)
+    st.image("logo_infona_redes.png", width=200)
 
 elif menu == "Chatea con INFONA":
     st.header("Chatea con INFONA")
